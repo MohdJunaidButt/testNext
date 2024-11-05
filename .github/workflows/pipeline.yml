@@ -24,6 +24,9 @@ jobs:
       - name: Build Next.js app
         run: npm run build
 
+      - name: Locate .next directory
+        run: find . -name ".next" -type d  # Finds the exact path of .next
+
       - name: List files for debugging
         run: ls -a  # Lists all files, including hidden ones, to confirm .next is present
 
@@ -34,4 +37,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: next-build
-          path: .next  # Explicitly specify the path to the .next folder
+          path: ./.next  # Adjust the path if the find command shows a different location
