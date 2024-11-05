@@ -1,15 +1,13 @@
-# This is a basic workflow to help you get started with Actions
-
 name: Deploy Next.js to Azure
 
-# Controls when the workflow will run
 on:
   push:
     branches:
       - main 
+
 jobs:
   build:
-    runs-on: macos-latest  # Runs on GitHub's MacOS runner
+    runs-on: macos-latest
 
     steps:
       - name: Checkout code
@@ -18,7 +16,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '20'  # Or whatever Node.js version your Next.js app requires
+          node-version: '20'
 
       - name: Install dependencies
         run: npm install
@@ -26,8 +24,11 @@ jobs:
       - name: Build Next.js app
         run: npm run build
 
+      - name: List files for debugging
+        run: ls -R  # Recursively lists files and directories
+
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
           name: next-build
-          path: .next  # Adjust if needed based on your build output directory
+          path: .next  # Ensure this matches the correct path of the build output
