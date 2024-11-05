@@ -1,49 +1,3 @@
-# name: Deploy Next.js to Azure
-
-# on:
-#   push:
-#     branches:
-#       - main 
-
-# jobs:
-#   build:
-#     runs-on: macos-latest
-
-#     steps:
-#       - name: Checkout code
-#         uses: actions/checkout@v2
-
-#       - name: Set up Node.js
-#         uses: actions/setup-node@v2
-#         with:
-#           node-version: '20'
-
-#       - name: Install dependencies
-#         run: npm install
-
-#       - name: Build Next.js app
-#         run: npm run build
-
-#       - name: Locate .next directory
-#         id: locate-next
-#         run: |
-#           NEXT_DIR=$(find . -name ".next" -type d)
-#           echo "NEXT_DIR=$NEXT_DIR" >> $GITHUB_ENV
-#           echo "Found .next directory at: $NEXT_DIR"
-
-#       - name: List files for debugging
-#         run: ls -a  # Lists all files, including hidden ones, to confirm .next is present
-
-#       - name: Set permissions on .next
-#         run: chmod -R 755 "${{ env.NEXT_DIR }}"  # Ensures the .next folder is accessible
-
-#       - name: Upload artifact
-#         uses: actions/upload-artifact@v3
-#         with:
-#           name: next-build
-#           path: "${{ env.NEXT_DIR }}"  # Uses the exact path found by find
-
-# THIS IS THE SECOND PIPELINE
 name: Deploy Next.js to Azure
 
 on:
@@ -71,18 +25,64 @@ jobs:
         run: npm run build
 
       - name: Locate .next directory
+        id: locate-next
         run: |
-          NEXT_DIR=$(find . -name ".next" -type d)
+          NEXT_DIR=$(pwd)/.next
           echo "NEXT_DIR=$NEXT_DIR" >> $GITHUB_ENV
+          echo "Found .next directory at: $NEXT_DIR"
 
       - name: List files for debugging
         run: ls -a  # Lists all files, including hidden ones, to confirm .next is present
 
       - name: Set permissions on .next
-        run: chmod -R 755 .next  # Ensures the .next folder is accessible
+        run: chmod -R 755 "${{ env.NEXT_DIR }}"  # Ensures the .next folder is accessible
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
           name: next-build
-          path: ${{ env.NEXT_DIR }}
+          path: "${{ env.NEXT_DIR }}"  # Uses the exact path found by find
+
+# THIS IS THE SECOND PIPELINE
+# name: Deploy Next.js to Azure
+
+# on:
+#   push:
+#     branches:
+#       - main 
+
+# jobs:
+#   build:
+#     runs-on: macos-latest
+
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v2
+
+#       - name: Set up Node.js
+#         uses: actions/setup-node@v2
+#         with:
+#           node-version: '20'
+
+#       - name: Install dependencies
+#         run: npm install
+
+#       - name: Build Next.js app
+#         run: npm run build
+
+#       - name: Locate .next directory
+#         run: |
+#           NEXT_DIR=$(find . -name ".next" -type d)
+#           echo "NEXT_DIR=$NEXT_DIR" >> $GITHUB_ENV
+
+#       - name: List files for debugging
+#         run: ls -a  # Lists all files, including hidden ones, to confirm .next is present
+
+#       - name: Set permissions on .next
+#         run: chmod -R 755 .next  # Ensures the .next folder is accessible
+
+#       - name: Upload artifact
+#         uses: actions/upload-artifact@v3
+#         with:
+#           name: next-build
+#           path: ${{ env.NEXT_DIR }}
