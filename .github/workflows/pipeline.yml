@@ -24,12 +24,12 @@ jobs:
       - name: Build Next.js app
         run: npm run build
 
-      - name: Locate .next directory
-        id: locate-next
-        run: |
-          NEXT_DIR=$(pwd)/.next
-          echo "NEXT_DIR=$NEXT_DIR" >> $GITHUB_ENV
-          echo "Found .next directory at: $NEXT_DIR"
+      # - name: Locate .next directory
+      #   id: locate-next
+      #   run: |
+      #     NEXT_DIR=$(pwd)/.next
+      #     echo "NEXT_DIR=$NEXT_DIR" >> $GITHUB_ENV
+      #     echo "Found .next directory at: $NEXT_DIR"
 
       - name: List files for debugging
         run: ls -a  # Lists all files, including hidden ones, to confirm .next is present
@@ -41,7 +41,8 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: next-build
-          path: "${{ env.NEXT_DIR }}"  # Uses the exact path found by find
+          # path: "${{ env.NEXT_DIR }}"  # Uses the exact path found by find
+          path: /Users/runner/work/testNext/testNext/.next
 
 # THIS IS THE SECOND PIPELINE
 # name: Deploy Next.js to Azure
