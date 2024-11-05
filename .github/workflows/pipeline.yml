@@ -25,7 +25,7 @@ jobs:
         run: npm run build
 
       - name: List files for debugging
-        run: ls -R  # Recursively lists files and directories
+        run: ls -a  # Recursively lists files and directories
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
