@@ -34,8 +34,8 @@ jobs:
       # - name: List files for debugging
       #   run: ls -a  # Lists all files, including hidden ones, to confirm .next is present
 
-      # - name: Set permissions on .next
-      #   run: chmod -R 755 "${{ env.NEXT_DIR }}"  # Ensures the .next folder is accessible
+      - name: Set permissions on .next
+        run: chmod -R 755 "${{ env.NEXT_DIR }}"  # Ensures the .next folder is accessible
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
