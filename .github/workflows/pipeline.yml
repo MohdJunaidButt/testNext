@@ -31,4 +31,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: next-build
-          path: .next  # Ensure this matches the correct path of the build output
+          path: ./.next  # Explicitly specify the path to the .next folder  # Ensure this matches the correct path of the build output
